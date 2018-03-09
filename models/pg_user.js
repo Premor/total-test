@@ -1,12 +1,6 @@
 exports.id = 'pg_user';
 exports.version = '1.00';
-const Agent = require('sqlagent/pg').connect({
-    host: 'localhost',
-    user: 'postgres',
-    password: '1111',
-    database: 'postgres'
-
-})
+const Agent = require('sqlagent/pg').connect(CONFIG('database'))
 const pg = new Agent();
 
 exports.create = (user) => {
