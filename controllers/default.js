@@ -1,15 +1,15 @@
 exports.install = function() {
 	ROUTE('/');
 	
-	ROUTE('/registration',view_registration,['unauthorize']);
-	ROUTE('/registration',view_registration_auth,['authorize']);
-	ROUTE('/registration', json_create_user, ['post','unauthorize']);
+	ROUTE('/registration',view_registration,['#session']);
+	ROUTE('/registration',view_registration_auth,['#session']);
+	ROUTE('/registration', json_create_user, ['post','#session']);
 	ROUTE('/login');
 	
-	ROUTE('/login/google',oauth_login,['unauthorize']);
-	ROUTE('/login/google/callback/', oauth_login_callback, ['unauthorize']);
+	ROUTE('/login/google',oauth_login,['#session']);
+	ROUTE('/login/google/callback/', oauth_login_callback, ['#session']);
 	//ROUTE('/test', test);
-	ROUTE('/login', login, ['post']);
+	ROUTE('/login', login, ['post','#session']);
 	ROUTE('/logout',logout,['authorize']);
 	//ROUTE('/congratulation')
 	// or
@@ -31,7 +31,7 @@ function oauth_login() {
     // oauth2.github.key =
     // oauth2.github.secret =
     // ...
-	
+	console.log(CONFIG('oauth2.google.key'))
     MODULE('oauth2').redirect(type, CONFIG('oauth2.' + type + '.key'), self.host('/login/' + type + '/callback/'), self);
 }
 
@@ -77,6 +77,8 @@ function view_registration(){
 }
 
 function login(){
+	let self = this;
+	console.log(self.session)
 	MODEL('user').find_u(this.body.login, this.body.psw, (err,res)=>{
 		if (err)
 			this.view('fail', err);

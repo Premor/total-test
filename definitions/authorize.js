@@ -1,4 +1,4 @@
-framework.onAuthorize = function(req, res, flags, next) {
+/*framework.onAuthorize = function(req, res, flags, next) {
 
     // EXAMPLE:
     var userId = req.cookie('user');
@@ -23,9 +23,9 @@ framework.onAuthorize = function(req, res, flags, next) {
         next(true, user);
 
         // or assign the user object to request.user:
-        /*
-            req.user = user;
-            next(true);
-        */
+        
+        //    req.user = user;
+        //    next(true);
+        
     });
-}
+}*/
