@@ -5,7 +5,7 @@ exports.install = function() {
 	ROUTE('/registration',view_registration_auth,['authorize']);
 	ROUTE('/registration', json_create_user, ['post','unauthorize']);
 	ROUTE('/login');
-	ROUTE('/test');
+	ROUTE('/test', test);
 	ROUTE('/login', login, ['post']);
 	ROUTE('/logout',logout,['authorize']);
 	//ROUTE('/congratulation')
@@ -22,6 +22,7 @@ function test(){
 	var user = { id: Utils.GUID(5), login: 123, password: 321 };
 	
 	MODEL('pg_user').create(user);
+	this.view('congratulation')
 }
 
 function view_index() {
