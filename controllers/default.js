@@ -5,8 +5,9 @@ exports.install = function() {
 	ROUTE('/registration',view_registration_auth,['authorize']);
 	ROUTE('/registration', json_create_user, ['post','unauthorize']);
 	ROUTE('/login');
+	ROUTE('/test');
 	ROUTE('/login', login, ['post']);
-	ROUTE('/logout',logout,['authorize'])
+	ROUTE('/logout',logout,['authorize']);
 	//ROUTE('/congratulation')
 	// or
 	// F.route('/');
@@ -15,6 +16,12 @@ exports.install = function() {
 function logout(){
 	this.cookie('user','','-1 day')
 	this.redirect('/')
+}
+
+function test(){
+	var user = { id: Utils.GUID(5), login: 123, password: 321 };
+	
+	MODEL('pg_user').create(user);
 }
 
 function view_index() {
