@@ -51,8 +51,8 @@ function oauth_login_callback() {
 
     MODULE('oauth2').callback(type, CONFIG('oauth2.' + type + '.key'), CONFIG('oauth2.' + type + '.secret'), url, self, function(err, profile, access_token) {
 		console.log(profile);
-		self.session.google_profile = profile;
-        self.view('congratulation', self.session.google_profile.displayName);
+		self.session.user.google_profile = profile;
+        self.view('congratulation', self.session.user.google_profile.email);
     });
 }
 
