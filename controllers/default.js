@@ -1,23 +1,24 @@
 exports.install = function() {
 	ROUTE('/');
 	
-	ROUTE('/registration',view_registration,['unauthorize']);
-	ROUTE('/registration',view_registration_auth,['authorize']);
-	ROUTE('/registration', json_create_user, ['post','unauthorize']);
-	ROUTE('/login');
+	ROUTE('/registration',view_registration,['#session']);
+	//ROUTE('/registration',view_registration_auth,[/*'authorize',*/'#session']);
+	ROUTE('/registration', json_create_user, ['post'/*,'unauthorize'*/,'#session']);
+	ROUTE('/login',view_login,'#session');
 	
-	ROUTE('/login/google',oauth_login,['unauthorize']);
-	ROUTE('/login/google/callback/', oauth_login_callback, ['unauthorize']);
+	ROUTE('/login/google',oauth_login,[/*'unauthorize',*/'#session']);
+	ROUTE('/login/google/callback/', oauth_login_callback, [/*'unauthorize',*/'#session']);
 	//ROUTE('/test', test);
-	ROUTE('/login', login, ['post']);
-	ROUTE('/logout',logout,['authorize']);
+	ROUTE('/login', login, ['post','#session']);
+	ROUTE('/logout',logout,[/*'authorize',*/'#session']);
 	//ROUTE('/congratulation')
 	// or
 	// F.route('/');
 };
 
 function logout(){
-	this.cookie('user','','-1 day')
+	//this.cookie('user','','-1 day')
+	delete this.session.user;
 	this.redirect('/')
 }
 
@@ -49,8 +50,9 @@ function oauth_login_callback() {
     // ...
 
     MODULE('oauth2').callback(type, CONFIG('oauth2.' + type + '.key'), CONFIG('oauth2.' + type + '.secret'), url, self, function(err, profile, access_token) {
-        console.log(profile);
-        self.json(SUCCESS(true));
+		console.log(profile);
+		self.session.google_profile = profile;
+        self.view('congratulation', self.session.google_profile.displayName);
     });
 }
 
@@ -68,21 +70,29 @@ function view_index() {
 
 function view_registration_auth(){
 	var self = this;
-	self.view('registration_auth');
+	
 }
 
 function view_registration(){
 	var self = this;
-	self.view('registration');
+	if (self.session.user)
+		self.view('registration_auth');
+	else	
+		self.view('registration');
 }
 
+function view_login(){
+	var self = this;
+	self.view('login');
+}
 function login(){
+	var self = this;
 	MODEL('user').find_u(this.body.login, this.body.psw, (err,res)=>{
 		if (err)
 			this.view('fail', err);
 		else
 		{
-			this.cookie('user', res.id, '5 days');
+			this.session.user = {id: res.id, login: self.body.login};
 			this.redirect('/');
 		}
 	})
