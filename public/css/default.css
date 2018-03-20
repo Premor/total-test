@@ -2,11 +2,49 @@
 
 $color    : #67B13D;
 
-body { padding:0; margin:0; font:normal 14px Arial; color:#656D78; background-color: #67B13D; line-height: 20px; }
-
+body { padding:0; margin:0; font:normal 14px Arial; color:#656D78; line-height: 20px; }
+.header-t {background-color: red;
+    height: 40px}
 .container-background { background-color: white; }
-.container { margin:0 auto; width: 960px; padding: 50px 0; }
+.container { margin:0 auto; }
 
+.test-i{
+    height: 20px;
+    width: 40%;
+    float: left;
+}
+
+.fot{
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+}
+li {
+    list-style-type: none; /* Убираем маркеры */
+    text-align: center;
+    color: rgb(255, 255, 255);
+   }
+ul {
+    margin-left: 0; /* Отступ слева в браузере IE и Opera */
+    padding-left: 0px; /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
+li a:link {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+   
+}
+li a:visited {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+}
+.test-h {
+    width: 59%;
+    margin-left: auto;
+    margin-right: 1%;
+    float: right;
+}
 .center { text-align: center; }
 hr { border: 0; border-top: 1px solid #E0E0E0; }
 

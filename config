@@ -12,5 +12,7 @@ mail-address-copy               :
 
 database                        : postgres://root:7303556@localhost:5432/postgres
                                 
+//default-theme                   : default
+
 oauth2.google.key               : 665277723260-tfeo9mquv0tfb87nbu5eum79k8qangqm.apps.googleusercontent.com
 oauth2.google.secret            :  _O1ttdZlV2N1alkq02zGLB7e

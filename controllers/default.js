@@ -14,7 +14,27 @@ exports.install = function() {
 	//ROUTE('/congratulation')
 	// or
 	// F.route('/');
+	//F.routeImage('./img/test.png')
+	//F.routeStatic('test.png')
+	//ROUTE('/img/*' , image_resize)
+	//ROUTE('/test/*' , util_url_mode)
 };
+
+
+/*function util_url_mode(str){
+	console.log(F.path.public(this.req.url))
+}*/
+
+
+/*function image_resize(){
+	let self = this;
+	util_url_mode(123);
+	this.image(F.path.public(self.req.url),(image)=>{
+		//let image = require('total.js/image').init(file)
+		image.resize('10%');
+		image.quality(80);
+		image.minify();})
+}*/
 
 function logout(){
 	//this.cookie('user','','-1 day')
@@ -108,3 +128,7 @@ function json_create_user() {
     MODEL('user').create(user);
     this.view('/congratulation', user);
 }
+
+
+
+
